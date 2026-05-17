@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر أحمد للجملة | كفرات آيفون</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- استدعاء خطوط جوجل لجعل المظهر احترافي -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- الهيدر (رأس الصفحة) -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>متجر <span>أحمد</span> للجملة</h1>
+                <p>موردك الأول لكفرات الهواتف الذكية</pindex.html
+            </div>
+            <!-- أدوات البحث والتصفية -->
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن موديل أو نوع الكفر...">
+            </div>
+        </div>
+    </header>
+
+    <!-- الأقسام والتصنيفات (الفلترة) -->
+    <nav class="filter-nav">
+        <div class="container filter-container">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="iphone15">آيفون 15 / برو / ماكس</button>
+            <button class="filter-btn" data-filter="iphone14">آيفون 14 / برو / ماكس</button>
+            <button class="filter-btn" data-filter="iphone13">آيفون 13 / برو / ماكس</button>
+        </div>
+    </nav>
+
+    <!-- معرض المنتجات الرئيسي -->
+    <main class="container">
+        <section class="products-grid" id="productsGrid">
+            <!-- سيتم توليد المنتجات هنا تلقائياً بواسطة الجافا سكريبت -->
+        </section>
+    </main>
+
+    <!-- النافذة المنبثقة التفصيلية (Modal) -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-images">
+                    <img id="modalMainImg" src="" alt="صورة المنتج الرئيسية">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle">اسم المنتج</h2>
+                    <p class="product-category" id="modalCategory">الموديل</p>
+                    <div class="price-tag">السعر للجملة: <span id="modalPrice">0</span> دينار</div>
+                    
+                    <div class="info-section">
+                        <h3>الألوان المتوفرة:</h3>
+                        <div class="color-options" id="modalColors">
+                            <!-- الألوان تظهر هنا -->
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3>وصف ومميزات المنتج:</h3>
+                        <p id="modalDescription">هنا يظهر الشرح الكامل عن خامة الكفر ومميزاته للتاجر.</p>
+                    </div>
+                    
+                    <div class="b2b-badge">الحد الأدنى للطلب: 100 قطة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر (أسفل الصفحة) -->
+    <footer>
+        <p>&copy; 2026 جميع الحقوق محفوظة لمتجر أحمد للتجارة والجملة</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

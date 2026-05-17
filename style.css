@@ -1,0 +1,453 @@
+:root {
+    --bg-dark: #0b0f19;
+    --card-bg: #131c2e;
+    --neon-blue: #00f2fe;
+    --neon-purple: #4facfe;
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --border-color: #1e293b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+.container {
+    width: 92%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* توهج خلفي للموقع لإعطاء عمق وفخامة */
+.bg-glow {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, rgba(0,0,0,0) 70%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* الهيدر */
+header {
+    background: rgba(19, 28, 46, 0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 25px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-icon {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 900;
+    color: #000;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+
+.brand h1 {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.brand h1 span {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.search-wrapper input {
+    width: 350px;
+    background-color: #070a12;
+    border: 1px solid var(--border-color);
+    padding: 14px 20px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+}
+
+.search-hint {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+/* بار الإحصائيات */
+.stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(90deg, #131c2e, #1a263f);
+    padding: 15px;
+    border-radius: 14px;
+    margin-top: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.stat-item {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.stat-item span {
+    color: var(--neon-blue);
+    font-weight: 700;
+    margin-left: 5px;
+}
+
+/* الفلترة */
+.filter-navigation {
+    margin: 35px 0 20px 0;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.tab-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 10px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.tab-btn:hover, .tab-btn.active {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    color: #000;
+    font-weight: 700;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+}
+
+/* كروت المنتجات الجبارة */
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 10px 0 50px 0;
+}
+
+.case-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.case-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 10px 25px rgba(0, 242, 254, 0.15);
+}
+
+.img-box {
+    background-color: #070a12;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    position: relative;
+}
+
+.img-box img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.case-card:hover .img-box img {
+    transform: scale(1.08);
+}
+
+.details-box {
+    padding: 22px;
+}
+
+.details-box h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tag-cat {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: #1e293b;
+    padding: 3px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-row .cost {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--neon-blue);
+}
+
+.action-btn {
+    background-color: #1e293b;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.case-card:hover .action-btn {
+    background: var(--neon-blue);
+    color: #000;
+}
+
+/* المودال السينمائي الجديد */
+.cinema-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(5, 7, 12, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.modal-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 850px;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px; left: 20px;
+    background: none; border: none;
+    font-size: 35px; color: var(--text-muted);
+    cursor: pointer; z-index: 10;
+}
+
+.close-btn:hover { color: #fff; }
+
+.modal-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.modal-gallery {
+    flex: 1;
+    min-width: 320px;
+    background-color: #070a12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+}
+
+.modal-gallery img {
+    max-height: 350px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.badge-new {
+    position: absolute; top: 20px; right: 20px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000; font-weight: 900; font-size: 11px;
+    padding: 4px 12px; border-radius: 20px;
+}
+
+.modal-details {
+    flex: 1.2;
+    min-width: 320px;
+    padding: 40px;
+}
+
+.modal-details h2 {
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.tag-model {
+    color: var(--neon-purple);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.price-box {
+    margin: 20px 0;
+    background: #070a12;
+    padding: 15px;
+    border-radius: 12px;
+    border-right: 4px solid var(--neon-blue);
+}
+
+.price-label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.price-value {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--neon-blue);
+}
+
+.spec-section {
+    margin-bottom: 20px;
+}
+
+.spec-section h3 {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.color-palette {
+    display: flex;
+    gap: 12px;
+}
+
+.color-ring {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.color-inner {
+    width: 100%; height: 100%; border-radius: 50%;
+}
+
+.color-ring:hover {
+    border-color: var(--neon-blue);
+}
+
+.desc-text {
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.7;
+}
+
+.order-whatsapp-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 25px;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    transition: transform 0.2s;
+}
+
+.order-whatsapp-btn:hover {
+    transform: scale(1.02);
+}
+
+footer {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 60px;
+}
+
+footer span { color: var(--neon-blue); font-weight: 700; }
+
+@media (max-width: 768px) {
+    .header-grid { flex-direction: column; text-align: center; }
+    .search-wrapper input { width: 100%; }
+    .modal-grid { flex-direction: column; }
+    .modal-details { padding: 25px; }
+}
