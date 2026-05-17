@@ -3,80 +3,521 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر أحمد للجملة | كفرات آيفون</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- استدعاء خطوط جوجل لجعل المظهر احترافي -->
+    <title>Alpha Wholesale | المنصة الرسمية للتجهيز</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #0b0c10;       /* أسود عميق للخلفية */
+            --bg-surface: #14171a;    /* أسود رمادي للكروت */
+            --olive-primary: #556b2f; /* زيتوني كلاسيكي فاخر */
+            --olive-light: #8fbc8f;   /* زيتوني مضيء للمؤشرات */
+            --text-main: #f5f5f5;     /* أبيض ناصع للمسميات */
+            --text-muted: #8a9199;    /* رمادي ناعم للتفاصيل */
+            --border-line: rgba(85, 107, 47, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* هيدر رسمي فخم */
+        header {
+            background-color: var(--bg-surface);
+            border-bottom: 2px solid var(--olive-primary);
+            padding: 25px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .header-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--olive-primary), #3b4d22);
+            color: var(--text-main);
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
+            border-radius: 12px;
+            border: 1px solid var(--olive-light);
+            box-shadow: 0 0 15px rgba(85, 107, 47, 0.4);
+        }
+
+        .brand h1 {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .brand h1 span {
+            color: var(--olive-light);
+        }
+
+        .brand p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        /* شريط البحث الاحترافي */
+        .search-wrapper input {
+            width: 100%;
+            padding: 14px 20px;
+            background-color: var(--bg-deep);
+            border: 1px solid var(--border-line);
+            border-radius: 30px;
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .search-wrapper input:focus {
+            border-color: var(--olive-light);
+            box-shadow: 0 0 15px rgba(143, 188, 143, 0.2);
+        }
+
+        /* شريط إحصائيات البراند */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 25px auto;
+            text-align: center;
+        }
+
+        .stat-item {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-line);
+            padding: 12px 5px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .stat-item span {
+            display: block;
+            color: var(--olive-light);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* نظام الفلترة العالمي (Tabs) */
+        .filter-section-title {
+            font-size: 14px;
+            color: var(--olive-light);
+            margin: 15px 0 8px 0;
+            font-weight: 700;
+            border-right: 3px solid var(--olive-primary);
+            padding-right: 8px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            border: 1px solid var(--border-line);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--olive-primary);
+            color: var(--text-main);
+            border-color: var(--olive-light);
+            box-shadow: 0 4px 12px rgba(85, 107, 47, 0.4);
+        }
+
+        /* شبكة عرض المنتجات */
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .case-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-line);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--olive-light);
+        }
+
+        .img-box {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* كادر مربع مثالي للمنتجات */
+            background-color: #1a1e22;
+        }
+
+        .img-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .details-box {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .details-box h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 38px;
+        }
+
+        .tag-cat {
+            font-size: 11px;
+            background-color: rgba(85, 107, 47, 0.15);
+            color: var(--olive-light);
+            padding: 3px 8px;
+            border-radius: 4px;
+            align-self: flex-start;
+            font-weight: 600;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .cost {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--olive-light);
+        }
+
+        .action-btn {
+            background-color: var(--olive-primary);
+            color: var(--text-main);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* نافذة التفاصيل الفاخرة المونبثقة (Modal) */
+        .cinema-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 15px;
+        }
+
+        .modal-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--olive-primary);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(0,0,0,0.5);
+            color: var(--text-main);
+            border: 1px solid var(--border-line);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            max-height: 280px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-line);
+        }
+
+        .modal-details {
+            padding: 20px;
+        }
+
+        .modal-details h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .price-box {
+            background-color: var(--bg-deep);
+            border: 1px solid var(--border-line);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .price-label {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .price-value {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--olive-light);
+        }
+
+        .spec-section {
+            margin-bottom: 15px;
+        }
+
+        .spec-section h3 {
+            font-size: 13px;
+            color: var(--olive-light);
+            margin-bottom: 6px;
+        }
+
+        .desc-text {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 8px;
+        }
+
+        .color-ring {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .color-inner {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .order-whatsapp-btn {
+            display: block;
+            background: linear-gradient(135deg, #25d366, #1ebd57);
+            color: #fff;
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border-line);
+            margin-top: 40px;
+        }
+
+        footer span {
+            color: var(--olive-light);
+            font-weight: 600;
+        }
+
+        /* تعديلات لشاشات الحواسب ليكون متناسق عالمياً */
+        @media (min-width: 768px) {
+            .header-grid { flex-direction: row; justify-content: space-between; align-items: center; }
+            .search-wrapper input { width: 350px; }
+            .products-container { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+            .stats-bar { grid-template-columns: repeat(3, 250px); justify-content: center; gap: 20px; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- الهيدر (رأس الصفحة) -->
     <header>
-        <div class="container header-container">
-            <div class="logo">
-                <h1>متجر <span>أحمد</span> للجملة</h1>
-                <p>موردك الأول لكفرات الهواتف الذكية</pindex.html
+        <div class="container header-grid">
+            <div class="brand">
+                <div class="logo-icon">A</div>
+                <div>
+                    <h1>ALPHA <span>WHOLESALE</span></h1>
+                    <p>المنصة الرسمية الموحدة لتجهيز المحلات وموزعي التجزئة</p>
+                </div>
             </div>
-            <!-- أدوات البحث والتصفية -->
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="ابحث عن موديل أو نوع الكفر...">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="ابحث عن المادة، الموديل، الخامات...">
             </div>
         </div>
     </header>
 
-    <!-- الأقسام والتصنيفات (الفلترة) -->
-    <nav class="filter-nav">
-        <div class="container filter-container">
-            <button class="filter-btn active" data-filter="all">الكل</button>
-            <button class="filter-btn" data-filter="iphone15">آيفون 15 / برو / ماكس</button>
-            <button class="filter-btn" data-filter="iphone14">آيفون 14 / برو / ماكس</button>
-            <button class="filter-btn" data-filter="iphone13">آيفون 13 / برو / ماكس</button>
-        </div>
-    </nav>
+    <section class="stats-bar container">
+        <div class="stat-item"><span>+10K</span> المنتجات المتاحة</div>
+        <div class="stat-item"><span>100%</span> فحص جودة معتمد</div>
+        <div class="stat-item"><span>4 شباب</span> إدارة وتجهيز فوري</div>
+    </section>
 
-    <!-- معرض المنتجات الرئيسي -->
+    <div class="container">
+        <div class="filter-section-title">فئة المنتجات التجارية</div>
+        <nav class="filter-tabs" id="typeFilters">
+            <button class="tab-btn active" data-type="all">كل المعروض</button>
+            <button class="tab-btn" data-type="cases">كفرات وحوافظ</button>
+            <button class="tab-btn" data-type="screens">شاشات تجارية</button>
+            <button class="tab-btn" data-type="protection">لزقات حماية كاملة</button>
+            <button class="tab-btn" data-type="accessories">إكسسوارات وشواحن</button>
+        </nav>
+
+        <div class="filter-section-title">نوع وموديل الآيفون</div>
+        <nav class="filter-tabs" id="modelFilters">
+            <button class="tab-btn active" data-model="all">جميع موديلات Apple</button>
+            <button class="tab-btn" data-model="iphone15">iPhone 15 Series</button>
+            <button class="tab-btn" data-model="iphone14">iPhone 14 Series</button>
+            <button class="tab-btn" data-model="iphone13">iPhone 13 Series</button>
+            <button class="tab-btn" data-model="iphone12">iPhone 12 Series</button>
+            <button class="tab-btn" data-model="iphone11">iPhone 11 Series</button>
+            <button class="tab-btn" data-model="future">خانات قادمة للمستقبل</button>
+        </nav>
+    </div>
+
     <main class="container">
-        <section class="products-grid" id="productsGrid">
-            <!-- سيتم توليد المنتجات هنا تلقائياً بواسطة الجافا سكريبت -->
-        </section>
+        <div class="products-container" id="productsGrid"></div>
     </main>
 
-    <!-- النافذة المنبثقة التفصيلية (Modal) -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="modal-images">
-                    <img id="modalMainImg" src="" alt="صورة المنتج الرئيسية">
+    <div class="cinema-modal" id="productModal">
+        <div class="modal-card">
+            <button class="close-btn">&times;</button>
+            <div class="modal-gallery">
+                <img id="modalMainImg" src="" alt="">
+            </div>
+            <div class="modal-details">
+                <h2 id="modalTitle">اسم المادة البديل</h2>
+                <div style="display: flex; gap: 6px;">
+                    <span class="tag-cat" id="modalTypeTag">الصنف</span>
+                    <span class="tag-cat" style="background-color: rgba(255,255,255,0.05); color: var(--text-main);" id="modalModelTag">الموديل</span>
                 </div>
-                <div class="modal-info">
-                    <h2 id="modalTitle">اسم المنتج</h2>
-                    <p class="product-category" id="modalCategory">الموديل</p>
-                    <div class="price-tag">السعر للجملة: <span id="modalPrice">0</span> دينار</div>
-                    
-                    <div class="info-section">
-                        <h3>الألوان المتوفرة:</h3>
-                        <div class="color-options" id="modalColors">
-                            <!-- الألوان تظهر هنا -->
-                        </div>
-                    </div>
+                
+                <div class="price-box">
+                    <span class="price-label">سعر التجهيز بالجملة:</span>
+                    <div class="price-value"><span id="modalPrice">0</span> د.ع</div>
+                </div>
 
-                    <div class="info-section">
-                        <h3>وصف ومميزات المنتج:</h3>
-                        <p id="modalDescription">هنا يظهر الشرح الكامل عن خامة الكفر ومميزاته للتاجر.</p>
-                    </div>
-                    
-                    <div class="b2b-badge">الحد الأدنى للطلب: 100 قطة</div>
+                <div class="spec-section">
+                    <h3>الألوان والأشكال المتوفرة:</h3>
+                    <div class="color-palette" id="modalColors"></div>
                 </div>
+
+                <div class="spec-section">
+                    <h3>تفاصيل المادة الفنية:</h3>
+                    <p id="modalDescription" class="desc-text"></p>
+                </div>
+
+                <a href="#" id="whatsappBtn" target="_blank" class="order-whatsapp-btn">إرسال طلب التجهيز المباشر</a>
             </div>
         </div>
     </div>
 
-    <!-- الفوتر (أسفل الصفحة) -->
     <footer>
-        <p>&copy; 2026 جميع الحقوق محفوظة لمتجر أحمد للتجارة والجملة</p>
+        <p>&copy; 2026 المنصة الرسمية الموحدة لـ <span>Alpha Wholesale</span> للتجارة والاستيراد</p>
     </footer>
 
     <script src="script.js"></script>
