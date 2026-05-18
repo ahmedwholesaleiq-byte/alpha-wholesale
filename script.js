@@ -1,7 +1,7 @@
-// 📱 رقم الواتساب الرسمي لمنصة ألفا
+// 📱 رقم الواتساب الرسمي المربوط بالمنصة
 const MY_WHATSAPP = "9647751079578"; 
 
-// 🎨 مصفوفة الألوان الكاملة (الغامقة، الباهتة، والحديثة) لأسواق الكفرات
+// 🎨 قائمة الألوان الاحترافية لأسواق الكفرات (غامقة وباهتة)
 const AVAILABLE_COLORS = [
     { name: "أسود ملكي", code: "#0b0c10" },
     { name: "زيتوني تكتيكي", code: "#556b2f" },
@@ -17,7 +17,7 @@ const AVAILABLE_COLORS = [
     { name: "شفاف نقي", code: "clear" }
 ];
 
-// 📦 المنتجات الافتراضية الثابتة (لحماية الموقع من الصفحات الفارغة)
+// 📦 مادة عرض أولية لحين قيامك بإضافة بضاعتك بنفسك
 const defaultProducts = [
     {
         id: 1,
@@ -26,35 +26,27 @@ const defaultProducts = [
         model: "iphone16promax",
         modelText: "iPhone 16 Pro Max",
         price: "1,500",
-        img: "case1.jpg",
+        img: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500",
         colors: ["#0b0c10", "#556b2f", "#4a0e17"],
         description: "سيليكون سائل عالي الجودة مضاد للصدمات والبصمات مع بطانة داخلية مخملية لحماية جسم الهاتف."
-    },
-    {
-        id: 2,
-        title: "شاشة حماية نانو سيراميك المرنة ضد الكسر",
-        type: "screens",
-        model: "iphone15promax",
-        modelText: "iPhone 15 Pro Max",
-        price: "2,000",
-        img: "screen1.jpg",
-        colors: ["clear", "#0b0c10"],
-        description: "جيل نانو سيراميك مطور مرن ومقاوم للصدمات الحادة يوفر حماية قصوى للشاشة."
     }
 ];
 
-// 🔥 فحص ذكي: إذا كانت الذاكرة فارغة أو لا تحتوي على بيانات، حمل الأشكال الافتراضية فوراً
+// النظام الذكي لدمج الذاكرة بالمتجر بشكل مستقر
 let savedData = localStorage.getItem('alpha_products');
 let products = [];
 
-if (savedData && savedData !== "[]") {
-    products = JSON.parse(savedData);
-} else {
+try {
+    if (savedData && savedData !== "[]" && savedData !== "null") {
+        products = JSON.parse(savedData);
+    } else {
+        products = [...defaultProducts];
+        localStorage.setItem('alpha_products', JSON.stringify(products));
+    }
+} catch (e) {
     products = [...defaultProducts];
-    localStorage.setItem('alpha_products', JSON.stringify(products));
 }
 
-// ⚙️ ربط عناصر الواجهة
 const productsGrid = document.getElementById('productsGrid');
 const searchInput = document.getElementById('searchInput');
 const modal = document.getElementById('productModal');
@@ -65,11 +57,10 @@ const adminPanel = document.getElementById('adminPanel');
 const colorsSelectorGrid = document.getElementById('colorsSelectorGrid');
 const saveProductBtn = document.getElementById('saveProductBtn');
 
-// 🛠️ بناء خيارات الألوان داخل لوحة التحكم تلقائياً
 function buildColorsSelector() {
     if (!colorsSelectorGrid) return;
     colorsSelectorGrid.innerHTML = "";
-    AVAILABLE_COLORS.forEach((color, index) => {
+    AVAILABLE_COLORS.forEach(color => {
         const item = document.createElement('label');
         item.classList.add('color-check-item');
         const finalColor = color.code === 'clear' ? 'rgba(255,255,255,0.2)' : color.code;
@@ -82,7 +73,6 @@ function buildColorsSelector() {
     });
 }
 
-// 🔓 فتح وإغلاق لوحة التحكم بكلمة مرور ذكية
 adminToggleBtn.addEventListener('click', () => {
     if (adminPanel.style.display === "block") {
         adminPanel.style.display = "none";
@@ -95,12 +85,11 @@ adminToggleBtn.addEventListener('click', () => {
             buildColorsSelector();
             window.scrollTo({ top: adminPanel.offsetTop - 20, behavior: 'smooth' });
         } else {
-            alert("الرمز السري غير صحيح! الصلاحية للمسؤول فقط.");
+            alert("الرمز غير صحيح! الدخول متاح للمسؤول فقط.");
         }
     }
 });
 
-// 💾 وظيفة حفظ وإضافة منتج جديد
 saveProductBtn.addEventListener('click', () => {
     const title = document.getElementById('pTitle').value.trim();
     const price = document.getElementById('pPrice').value.trim();
@@ -127,7 +116,7 @@ saveProductBtn.addEventListener('click', () => {
         model: model,
         modelText: modelText,
         price: price,
-        img: img || "case1.jpg",
+        img: img || "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500",
         colors: checkedColors.length > 0 ? checkedColors : ["clear"],
         description: description || "لا توجد تفاصيل إضافية متاح حالياً."
     };
@@ -146,7 +135,6 @@ saveProductBtn.addEventListener('click', () => {
     handleFiltering(); 
 });
 
-// ❌ وظيفة حذف منتج من المخزن
 window.deleteItem = function(id, event) {
     event.stopPropagation(); 
     if (confirm("هل أنت متأكد من مسح هذه المادة نهائياً من المخزن؟")) {
@@ -156,7 +144,6 @@ window.deleteItem = function(id, event) {
     }
 };
 
-// 🖥️ عرض المنتجات في الشبكة
 function displayProducts(list) {
     productsGrid.innerHTML = "";
     if (list.length === 0) {
@@ -184,7 +171,6 @@ function displayProducts(list) {
     });
 }
 
-// 🔍 فتح نافذة التفاصيل والطلب
 function openModal(item) {
     const modalImg = document.getElementById('modalMainImg');
     modalImg.src = item.img;
@@ -214,7 +200,6 @@ function openModal(item) {
 closeModal.addEventListener('click', () => modal.style.display = "none");
 window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = "none"; });
 
-// 🔎 الفلترة والبحث الذكي
 function handleFiltering() {
     const text = searchInput.value.toLowerCase().trim();
     const activeType = document.querySelector('#typeFilters .tab-btn.active').dataset.type;
@@ -241,5 +226,5 @@ document.querySelectorAll('.filter-tabs').forEach(container => {
     });
 });
 
-// تشغيل النظام فوراً
 displayProducts(products);
+            
