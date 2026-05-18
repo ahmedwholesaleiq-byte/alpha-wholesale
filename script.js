@@ -17,8 +17,8 @@ const AVAILABLE_COLORS = [
     { name: "شفاف نقي", code: "clear" }
 ];
 
-// 📦 تحميل المنتجات من ذاكرة الموقع أو وضع منتجات افتراضية إذا كانت فارغة
-let defaultProducts = [
+// 📦 المنتجات الافتراضية الثابتة (لحماية الموقع من الصفحات الفارغة)
+const defaultProducts = [
     {
         id: 1,
         title: "كفر السيليكون الملكي السائل لآيفون",
@@ -43,7 +43,16 @@ let defaultProducts = [
     }
 ];
 
-let products = JSON.parse(localStorage.getItem('alpha_products')) || defaultProducts;
+// 🔥 فحص ذكي: إذا كانت الذاكرة فارغة أو لا تحتوي على بيانات، حمل الأشكال الافتراضية فوراً
+let savedData = localStorage.getItem('alpha_products');
+let products = [];
+
+if (savedData && savedData !== "[]") {
+    products = JSON.parse(savedData);
+} else {
+    products = [...defaultProducts];
+    localStorage.setItem('alpha_products', JSON.stringify(products));
+}
 
 // ⚙️ ربط عناصر الواجهة
 const productsGrid = document.getElementById('productsGrid');
@@ -80,7 +89,7 @@ adminToggleBtn.addEventListener('click', () => {
         document.body.classList.remove('admin-mode');
     } else {
         let password = prompt("أدخل رمز الدخول السري للوحة التحكم:");
-        if (password === "1234") { // يمكنك تغيير الرمز "1234" لأي رمز تريده
+        if (password === "1234") { 
             adminPanel.style.display = "block";
             document.body.classList.add('admin-mode');
             buildColorsSelector();
@@ -101,7 +110,6 @@ saveProductBtn.addEventListener('click', () => {
     const modelText = document.getElementById('pModelText').value.trim();
     const description = document.getElementById('pDesc').value.trim();
     
-    // جمع الألوان المحددة
     const checkedColors = [];
     document.querySelectorAll('input[name="pColors"]:checked').forEach(cb => {
         checkedColors.push(cb.value);
@@ -113,7 +121,7 @@ saveProductBtn.addEventListener('click', () => {
     }
 
     const newProduct = {
-        id: Date.now(), // رقم تعريفي فريد
+        id: Date.now(), 
         title: title,
         type: type,
         model: model,
@@ -124,24 +132,23 @@ saveProductBtn.addEventListener('click', () => {
         description: description || "لا توجد تفاصيل إضافية متاح حالياً."
     };
 
-    products.unshift(newProduct); // إضافة المنتج في البداية
-    localStorage.setItem('alpha_products', JSON.stringify(products)); // الحفظ بالذاكرة
+    products.unshift(newProduct); 
+    localStorage.setItem('alpha_products', JSON.stringify(products)); 
     
     alert("تمت إضافة المادة وحفظها في المخزن بنجاح! 🎉");
     
-    // تصفير الاستمارة
     document.getElementById('pTitle').value = "";
     document.getElementById('pPrice').value = "";
     document.getElementById('pImg').value = "";
     document.getElementById('pModelText').value = "";
     document.getElementById('pDesc').value = "";
     
-    handleFiltering(); // تحديث العرض
+    handleFiltering(); 
 });
 
 // ❌ وظيفة حذف منتج من المخزن
 window.deleteItem = function(id, event) {
-    event.stopPropagation(); // منع فتح تفاصيل الكرت عند الضغط على حذف
+    event.stopPropagation(); 
     if (confirm("هل أنت متأكد من مسح هذه المادة نهائياً من المخزن؟")) {
         products = products.filter(p => p.id !== id);
         localStorage.setItem('alpha_products', JSON.stringify(products));
