@@ -426,4 +426,4 @@ footer { text-align: center; padding: 30px 0; color: var(--text-muted); font-siz
     .search-wrapper input { width: 350px; }
     .products-container { grid-template-columns: repeat(4, 1fr); gap: 20px; }
     .stats-bar { grid-template-columns: repeat(3, 250px); justify-content: center; gap: 20px; }
-}
+             }
