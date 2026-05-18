@@ -10,13 +10,14 @@
     
     <style>
         :root {
-            --bg-deep: #0b0c10;       /* أسود عميق للخلفية */
-            --bg-surface: #14171a;    /* أسود رمادي للكروت */
-            --olive-primary: #556b2f; /* زيتوني كلاسيكي فاخر */
-            --olive-light: #8fbc8f;   /* زيتوني مضيء للمؤشرات */
-            --text-main: #f5f5f5;     /* أبيض ناصع للمسميات */
-            --text-muted: #8a9199;    /* رمادي ناعم للتفاصيل */
+            --bg-deep: #0b0c10;       
+            --bg-surface: #14171a;    
+            --olive-primary: #556b2f; 
+            --olive-light: #8fbc8f;   
+            --text-main: #f5f5f5;     
+            --text-muted: #8a9199;    
             --border-line: rgba(85, 107, 47, 0.25);
+            --danger: #b91c1c;
         }
 
         * {
@@ -40,7 +41,6 @@
             margin: 0 auto;
         }
 
-        /* هيدر رسمي فخم */
         header {
             background-color: var(--bg-surface);
             border-bottom: 2px solid var(--olive-primary);
@@ -55,6 +55,13 @@
         }
 
         .brand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .brand-meta {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -91,7 +98,23 @@
             margin-top: 2px;
         }
 
-        /* شريط البحث الاحترافي */
+        .admin-toggle-btn {
+            background-color: transparent;
+            border: 1px solid var(--olive-primary);
+            color: var(--olive-light);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .admin-toggle-btn:hover {
+            background-color: var(--olive-primary);
+            color: var(--text-main);
+        }
+
         .search-wrapper input {
             width: 100%;
             padding: 14px 20px;
@@ -110,7 +133,6 @@
             box-shadow: 0 0 15px rgba(143, 188, 143, 0.2);
         }
 
-        /* شريط إحصائيات البراند */
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -135,7 +157,6 @@
             font-size: 16px;
         }
 
-        /* نظام الفلترة العالمي (Tabs) */
         .filter-section-title {
             font-size: 14px;
             color: var(--olive-light);
@@ -176,6 +197,97 @@
             box-shadow: 0 4px 12px rgba(85, 107, 47, 0.4);
         }
 
+        /* لوحة تحكم المتجر */
+        #adminPanel {
+            display: none;
+            background-color: var(--bg-surface);
+            border: 2px dashed var(--olive-primary);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .admin-form { grid-template-columns: repeat(2, 1fr); }
+            .form-full { grid-column: 1 / -1; }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            color: var(--olive-light);
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            background-color: var(--bg-deep);
+            border: 1px solid var(--border-line);
+            padding: 10px;
+            border-radius: 8px;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--olive-light);
+        }
+
+        .colors-checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background-color: var(--bg-deep);
+            padding: 10px;
+            border-radius: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid var(--border-line);
+        }
+
+        @media (min-width: 768px) { .colors-checkbox-grid { grid-template-columns: repeat(5, 1fr); } }
+
+        .color-check-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+
+        .color-preview-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .save-product-btn {
+            background-color: var(--olive-primary);
+            color: var(--text-main);
+            border: 1px solid var(--olive-light);
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .save-product-btn:hover {
+            background-color: #3b4d22;
+        }
+
         /* شبكة عرض المنتجات */
         .products-container {
             display: grid;
@@ -193,6 +305,7 @@
             flex-direction: column;
             transition: transform 0.3s, border-color 0.3s;
             cursor: pointer;
+            position: relative;
         }
 
         .case-card:hover {
@@ -200,10 +313,33 @@
             border-color: var(--olive-light);
         }
 
+        .delete-item-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        body.admin-mode .delete-item-badge {
+            display: flex;
+        }
+
         .img-box {
             position: relative;
             width: 100%;
-            padding-top: 100%; /* كادر مربع مثالي للمنتجات */
+            padding-top: 100%; 
             background-color: #1a1e22;
         }
 
@@ -271,7 +407,7 @@
             cursor: pointer;
         }
 
-        /* نافذة التفاصيل الفاخرة المونبثقة (Modal) */
+        /* نافذة التفاصيل الفاخرة */
         .cinema-modal {
             position: fixed;
             top: 0;
@@ -379,6 +515,7 @@
         .color-palette {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         .color-ring {
@@ -425,7 +562,6 @@
             font-weight: 600;
         }
 
-        /* تعديلات لشاشات الحواسب ليكون متناسق عالمياً */
         @media (min-width: 768px) {
             .header-grid { flex-direction: row; justify-content: space-between; align-items: center; }
             .search-wrapper input { width: 350px; }
@@ -439,17 +575,74 @@
     <header>
         <div class="container header-grid">
             <div class="brand">
-                <div class="logo-icon">A</div>
-                <div>
-                    <h1>ALPHA <span>WHOLESALE</span></h1>
-                    <p>المنصة الرسمية الموحدة لتجهيز المحلات وموزعي التجزئة</p>
+                <div class="brand-meta">
+                    <div class="logo-icon">A</div>
+                    <div>
+                        <h1>ALPHA <span>WHOLESALE</span></h1>
+                        <p>المنصة الرسمية الموحدة لتجهيز المحلات وموزعي التجزئة</p>
+                    </div>
                 </div>
+                <button class="admin-toggle-btn" id="adminToggleBtn">لوحة التحكم ⚙️</button>
             </div>
             <div class="search-wrapper">
                 <input type="text" id="searchInput" placeholder="ابحث عن المادة، الموديل، الخامات...">
             </div>
         </div>
     </header>
+
+    <section class="container" id="adminPanel">
+        <div class="filter-section-title" style="margin-top: 0; font-size: 16px;">إضافة مادة تجارية جديدة للمخزن</div>
+        <div class="admin-form">
+            <div class="form-group">
+                <label>اسم المادة التجارية:</label>
+                <input type="text" id="pTitle" placeholder="مثال: كفر سيليكون بصفائح مغناطيسية">
+            </div>
+            <div class="form-group">
+                <label>سعر التجهيز بالجملة (د.ع):</label>
+                <input type="text" id="pPrice" placeholder="مثال: 1,750">
+            </div>
+            <div class="form-group">
+                <label>رابط الصورة أو اسم الملف على GitHub:</label>
+                <input type="text" id="pImg" placeholder="مثال: case1.jpg أو ضع رابط ويب مباشر">
+            </div>
+            <div class="form-group">
+                <label>فئة المنتج التجاري:</label>
+                <select id="pType">
+                    <option value="cases">كفرات وحوافظ</option>
+                    <option value="screens">شاشات تجارية</option>
+                    <option value="protection">لزقات حماية كاملة</option>
+                    <option value="accessories">إكسسوارات وشواحن</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>الموديل المتوافق:</label>
+                <select id="pModel">
+                    <option value="all">جميع الموديلات</option>
+                    <option value="iphone17promax">iPhone 17 Pro Max</option>
+                    <option value="iphone16promax">iPhone 16 Pro Max</option>
+                    <option value="iphone15promax">iPhone 15 Pro Max</option>
+                    <option value="iphone14promax">iPhone 14 Pro Max</option>
+                    <option value="iphone13promax">iPhone 13 Pro Max</option>
+                    <option value="iphone12promax">iPhone 12 Pro Max</option>
+                    <option value="future">خانات مستقلة للمستقبل</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>اسم الموديل الظاهر للزبائن:</label>
+                <input type="text" id="pModelText" placeholder="مثال: iPhone 15 Pro Max">
+            </div>
+            <div class="form-group form-full">
+                <label>الألوان المتوفرة في الوجبة (اختر كل الألوان المتاحة):</label>
+                <div class="colors-checkbox-grid" id="colorsSelectorGrid">
+                    </div>
+            </div>
+            <div class="form-group form-full">
+                <label>تفاصيل المادة الفنية والوصف:</label>
+                <textarea id="pDesc" rows="3" placeholder="اكتب مواصفات المنتج الدقيقة لأسواق الجملة..."></textarea>
+            </div>
+            <button class="save-product-btn form-full" id="saveProductBtn">حفظ وإضافة المادة للمتجر فوراً 💾</button>
+        </div>
+    </section>
 
     <section class="stats-bar container">
         <div class="stat-item"><span>+10K</span> المنتجات المتاحة</div>
@@ -467,129 +660,4 @@
             <button class="tab-btn" data-type="accessories">إكسسوارات وشواحن</button>
         </nav>
 
-        <div class="filter-section-title">نوع وموديل الآيفون</div>
-        <nav class="filter-tabs" id="modelFilters">
-            <button class="tab-btn active" data-model="all">جميع موديلات Apple</button>
-            <button class="tab-btn" data-model="iphone15">iPhone 15 Series</button>
-            <button class="tab-btn" data-model="iphone14">iPhone 14 Series</button>
-            <button class="tab-btn" data-model="iphone13">iPhone 13 Series</button>
-            <button class="tab-btn" data-model="iphone12">iPhone 12 Series</button>
-            <button class="tab-btn" data-model="iphone11">iPhone 11 Series</button>
-            <button class="tab-btn" data-model="future">خانات قادمة للمستقبل</button>
-        </nav>
-    </div>
-
-    <main class="container">
-        <div class="products-container" id="productsGrid"></div>
-    </main>
-
-    <div class="cinema-modal" id="productModal">
-        <div class="modal-card">
-            <button class="close-btn">&times;</button>
-            <div class="modal-gallery">
-                <img id="modalMainImg" src="" alt="">
-            </div>
-            <div class="modal-details">
-                <h2 id="modalTitle">اسم المادة البديل</h2>
-                <div style="display: flex; gap: 6px;">
-                    <span class="tag-cat" id="modalTypeTag">الصنف</span>
-                    <span class="tag-cat" style="background-color: rgba(255,255,255,0.05); color: var(--text-main);" id="modalModelTag">الموديل</span>
-                </div>
-                
-                <div class="price-box">
-                    <span class="price-label">سعر التجهيز بالجملة:</span>
-                    <div class="price-value"><span id="modalPrice">0</span> د.ع</div>
-                </div>
-
-                <div class="spec-section">
-                    <h3>الألوان والأشكال المتوفرة:</h3>
-                    <div class="color-palette" id="modalColors"></div>
-                </div>
-
-                <div class="spec-section">
-                    <h3>تفاصيل المادة الفنية:</h3>
-                    <p id="modalDescription" class="desc-text"></p>
-                </div>
-
-                <a href="#" id="whatsappBtn" target="_blank" class="order-whatsapp-btn">إرسال طلب التجهيز المباشر</a>
-            </div>
-        </div>
-    </div>
-<div class="iphone-covers-section">
-    <h2 class="section-title">كفرات وحوافظ الآيفون</h2>
-    
-    <div class="products-grid">
-
-        <div class="product-card">
-            <div class="product-img-container">
-                <img src="img/covers/silicone-case.jpg" alt="كفر السيليكون الملكي">
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">كفر السيليكون الملكي السائل لآيفون</h3>
-                
-                <select class="model-selector">
-                    <option>iPhone 17 Pro Max</option>
-                    <option>iPhone 17 Pro</option>
-                    <option>iPhone 16 Pro Max</option>
-                    <option>iPhone 16 Pro</option>
-                    <option>iPhone 15 Pro Max</option>
-                    <option>iPhone 15 Pro</option>
-                    <option>iPhone 14 Pro Max</option>
-                    <option>iPhone 13 Pro Max</option>
-                    <option>iPhone 12 Pro Max</option>
-                </select>
-
-                <div class="color-picker">
-                    <div class="color-dot color-black" title="أسود"></div>
-                    <div class="color-dot color-titanium" title="تيتانيوم"></div>
-                    <div class="color-dot color-blue" title="أزرق"></div>
-                    <div class="color-dot color-gold" title="ذهبي"></div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="product-price">1,500 د.ع</span>
-                <button class="details-btn">تفاصيل</button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="product-img-container">
-                <img src="img/covers/magsafe-case.jpg" alt="كفر ماج سيف">
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">كفر شفاف حماية متكاملة مع ماج سيف</h3>
-                
-                <select class="model-selector">
-                    <option>iPhone 17 Pro Max</option>
-                    <option>iPhone 17 Pro</option>
-                    <option>iPhone 16 Pro Max</option>
-                    <option>iPhone 16 Pro</option>
-                    <option>iPhone 15 Pro Max</option>
-                    <option>iPhone 15 Pro</option>
-                    <option>iPhone 14 Pro Max</option>
-                    <option>iPhone 13 Pro Max</option>
-                    <option>iPhone 12 Pro Max</option>
-                </select>
-
-                <div class="color-picker">
-                    <div class="color-dot color-black" title="إطار أسود"></div>
-                    <div class="color-dot color-titanium" title="إطار تيتانيوم"></div>
-                    <div class="color-dot color-purple" title="إطار بنفسجي"></div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <span class="product-price">2,500 د.ع</span>
-                <button class="details-btn">تفاصيل</button>
-            </div>
-        </div>
-
-        </div>
-</div>
-    
-    <footer>
-        <p>&copy; 2026 المنصة الرسمية الموحدة لـ <span>Alpha Wholesale</span> للتجارة والاستيراد</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        <div class="filter-section-title">نوع وموديل ال
