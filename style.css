@@ -1,117 +1,408 @@
-/* قسم كفرات الآيفون المطور */
-.iphone-covers-section {
-    padding: 20px 12px;
-    background-color: #0b0c10; /* نفس لون الخلفية الداكن لمتجرك */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+    --bg-deep: #0b0c10;       
+    --bg-surface: #14171a;    
+    --olive-primary: #556b2f; 
+    --olive-light: #8fbc8f;   
+    --text-main: #f5f5f5;     
+    --text-muted: #8a9199;    
+    --border-line: rgba(85, 107, 47, 0.25);
+    --danger: #b91c1c;
 }
 
-.section-title {
-    color: #fff;
-    font-size: 1.2rem;
-    border-right: 4px solid #5f7d43; /* نفس اللون الزيتوني المعتمد بالصور */
-    padding-right: 8px;
-    margin-bottom: 20px;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', sans-serif;
+    scroll-behavior: smooth;
 }
 
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* نظام كارتين في كل سطر مثل لقطة الشاشة */
-    gap: 12px;
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    overflow-x: hidden;
+    padding-bottom: 60px;
 }
 
-.product-card {
-    background-color: #15191d; /* لون كارتات المتجر */
-    border-radius: 12px;
-    padding: 10px;
-    border: 1px solid #232931;
+.container {
+    width: 92%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    background-color: var(--bg-surface);
+    border-bottom: 2px solid var(--olive-primary);
+    padding: 25px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.header-grid {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
-.product-img-container {
-    width: 100%;
-    position: relative;
+.brand-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.product-card img {
-    width: 100%;
+.logo-icon {
+    background: linear-gradient(135deg, var(--olive-primary), #3b4d22);
+    color: var(--text-main);
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    border-radius: 12px;
+    border: 1px solid var(--olive-light);
+    box-shadow: 0 0 15px rgba(85, 107, 47, 0.4);
+}
+
+.brand h1 {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.brand h1 span {
+    color: var(--olive-light);
+}
+
+.brand p {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.admin-toggle-btn {
+    background-color: transparent;
+    border: 1px solid var(--olive-primary);
+    color: var(--olive-light);
+    padding: 8px 16px;
     border-radius: 8px;
-    object-fit: cover;
-}
-
-.product-info {
-    margin-top: 10px;
-}
-
-.product-name {
-    color: #fff;
-    font-size: 0.95rem;
+    cursor: pointer;
     font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: 6px;
-    min-height: 40px; /* لتوحيد ارتفاع الكارتات */
+    font-size: 13px;
+    transition: all 0.3s;
 }
 
-/* اللمسة الخاصة: اختيار الموديل من القائمة */
-.model-selector {
+.admin-toggle-btn:hover {
+    background-color: var(--olive-primary);
+    color: var(--text-main);
+}
+
+.search-wrapper input {
     width: 100%;
-    background-color: #222831;
-    color: #a0a5ab;
-    border: 1px solid #393e46;
-    padding: 6px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    margin-bottom: 8px;
+    padding: 14px 20px;
+    background-color: var(--bg-deep);
+    border: 1px solid var(--border-line);
+    border-radius: 30px;
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.search-wrapper input:focus {
+    border-color: var(--olive-light);
+    box-shadow: 0 0 15px rgba(143, 188, 143, 0.2);
+}
+
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 25px auto;
+    text-align: center;
+}
+
+.stat-item {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-line);
+    padding: 12px 5px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.stat-item span {
+    display: block;
+    color: var(--olive-light);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.filter-section-title {
+    font-size: 14px;
+    color: var(--olive-light);
+    margin: 15px 0 8px 0;
+    font-weight: 700;
+    border-right: 3px solid var(--olive-primary);
+    padding-right: 8px;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+}
+
+.filter-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-btn {
+    background-color: var(--bg-surface);
+    color: var(--text-muted);
+    border: 1px solid var(--border-line);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.tab-btn.active {
+    background-color: var(--olive-primary);
+    color: var(--text-main);
+    border-color: var(--olive-light);
+    box-shadow: 0 4px 12px rgba(85, 107, 47, 0.4);
+}
+
+#adminPanel {
+    display: none;
+    background-color: var(--bg-surface);
+    border: 2px dashed var(--olive-primary);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.admin-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .admin-form { grid-template-columns: repeat(2, 1fr); }
+    .form-full { grid-column: 1 / -1; }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-size: 13px;
+    color: var(--olive-light);
+    font-weight: 600;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    background-color: var(--bg-deep);
+    border: 1px solid var(--border-line);
+    padding: 10px;
+    border-radius: 8px;
+    color: var(--text-main);
     outline: none;
 }
 
-/* اللمسة الخاصة: اختيار الألوان دوائر تفاعلية */
-.color-picker {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
+.colors-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    background-color: var(--bg-deep);
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid var(--border-line);
 }
 
-.color-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid #fff;
-    cursor: pointer;
-}
+@media (min-width: 768px) { .colors-checkbox-grid { grid-template-columns: repeat(4, 1fr); } }
 
-.color-black   { background-color: #000; }
-.color-titanium{ background-color: #8e8e93; }
-.color-blue    { background-color: #2c3e50; }
-.color-gold    { background-color: #f1c40f; }
-.color-purple  { background-color: #8e44ad; }
-
-.card-footer {
+.color-check-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: auto;
-}
-
-.product-price {
-    color: #79a35a; /* لون السعر المتناسق مع الزيتوني */
-    font-weight: bold;
-    font-size: 0.95rem;
-}
-
-.details-btn {
-    background-color: #4a5c37; /* لون الزر الزيتوني الداكن */
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 0.85rem;
+    gap: 6px;
+    font-size: 12px;
     cursor: pointer;
+}
+
+.color-preview-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.save-product-btn {
+    background-color: var(--olive-primary);
+    color: var(--text-main);
+    border: 1px solid var(--olive-light);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
     transition: background 0.3s;
 }
 
-.details-btn:hover {
-    background-color: #5f7d43;
+.products-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.case-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-line);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+}
+
+.delete-item-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--danger);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 5;
+}
+
+body.admin-mode .delete-item-badge { display: flex; }
+
+.img-box {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; 
+    background-color: #1a1e22;
+}
+
+.img-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.details-box {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.details-box h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 38px;
+}
+
+.tag-cat {
+    font-size: 11px;
+    background-color: rgba(85, 107, 47, 0.15);
+    color: var(--olive-light);
+    padding: 3px 8px;
+    border-radius: 4px;
+    align-self: flex-start;
+}
+
+.price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cost { font-weight: 700; font-size: 15px; color: var(--olive-light); }
+.action-btn { background-color: var(--olive-primary); color: var(--text-main); border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
+
+.cinema-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    backdrop-filter: blur(5px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 9999; padding: 15px;
+}
+
+.modal-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--olive-primary);
+    width: 100%; max-width: 500px; border-radius: 24px;
+    overflow: hidden; position: relative;
+}
+
+.close-btn {
+    position: absolute; top: 15px; right: 15px;
+    background-color: rgba(0,0,0,0.5); color: var(--text-main);
+    border: 1px solid var(--border-line); width: 35px; height: 35px;
+    border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.modal-gallery img { width: 100%; max-height: 280px; object-fit: cover; }
+.modal-details { padding: 20px; }
+.price-box { background-color: var(--bg-deep); padding: 12px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin: 15px 0; }
+.price-value { font-size: 20px; font-weight: 900; color: var(--olive-light); }
+.spec-section { margin-bottom: 15px; }
+.spec-section h3 { font-size: 13px; color: var(--olive-light); margin-bottom: 6px; }
+.desc-text { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+.color-palette { display: flex; gap: 8px; flex-wrap: wrap; }
+.color-ring { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border-line); display: flex; align-items: center; justify-content: center; }
+.color-inner { width: 14px; height: 14px; border-radius: 50%; }
+.order-whatsapp-btn { display: block; background: linear-gradient(135deg, #25d366, #1ebd57); color: #fff; text-align: center; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 15px; margin-top: 20px; }
+
+footer { text-align: center; padding: 30px 0; color: var(--text-muted); font-size: 12px; border-top: 1px solid var(--border-line); margin-top: 40px; }
+
+@media (min-width: 768px) {
+    .header-grid { flex-direction: row; justify-content: space-between; align-items: center; }
+    .search-wrapper input { width: 350px; }
+    .products-container { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .stats-bar { grid-template-columns: repeat(3, 250px); justify-content: center; gap: 20px; }
 }
